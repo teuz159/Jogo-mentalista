@@ -1,1 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Imersão Dev - Aula 03</title>
+	<style>
+		body {
+  font-family: "Roboto Mono", monospace;
+  background-color: #00dbde;
+  background-image: linear-gradient(90deg, #00dbde 0%, #fc00ff 100%);
+  background-size: cover;
+}
 
+.container {
+  text-align: center;
+  background-color: black;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 5px;
+  border-color: white;
+  border-width: 2px;
+  border-style: solid;
+  padding: 10px;
+  padding-top:0;
+  height: 200px;
+}
+
+.page-title {
+  color: #ffffff;
+  margin: 0 0 5px;
+}
+
+.page-subtitle {
+  color: white;
+  font-size: 30px;
+}
+
+.page-logo {
+  width: 200px;
+}
+
+.alura-logo {
+  width: 40px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+@media (max-height: 500px) {
+  body {
+    min-height: 800px;
+  }
+}
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border-color: #00DBDE;
+  background-color: white;
+  border-size: 5px;
+}
+
+button {
+  position: absolute;
+  border-radius: 5px;
+  transform: translate(-50%, -50%);
+  top: 100%;
+  left: 50%;
+  padding: 10px;
+  font-size: 20px;
+  width: 200px;
+  border-color: white;
+  background-color: #FC00FF;
+  cursor: pointer;
+}
+button:hover{
+  background-color: #00DBDE;
+}
+.resultado {
+  text-align: center;
+  background-color: white;
+  color: black;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+  padding: 10px;
+  left: 50%;
+  top: 75%;
+  width: 300px;
+}
+.header {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 10%;
+  left: 20%;
+  background-color: black;
+  border-radius: 10px;
+  border-style: solid;
+  border-weigth: 2px;
+  border-color: #85ffbd;
+  padding: 5px;
+}
+	</style>
+</head>
+<body>
+<div class='header'>
+    <h1 class="page-title">
+      Mentalista
+    </h1>
+    <img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/logo-imersao-mentalista.svg" class="page-logo" alt="">
+  </div>
+  <div class="container">
+    <p class="page-subtitle">
+      Digite um número de 0 a 10
+    </p>
+    <input type="number" id="valor" /><br>
+    <button type="submit" onclick="chutar()" id='chutar'>Chutar</button>
+    <button type="submit" onclick="restart()" id='resetar'>Tentar de novo</button>
+  </div>
+  <h2 class="resultado" id="resultado"></h2>
+  <a href="https://alura.com.br/" target="_blank">
+    <img src="https://www.alura.com.br/assets/img/home/alura-logo.svg" alt="" class="alura-logo">
+  </a>
+  <script>
+  	var numeroAleatorio = Math.floor(Math.random() * 11);
+var quantidadeRodadas = 5;
+var botaoReset = document.getElementById("resetar");
+var botaoOnOrOff = botaoReset.style.display = 'none';
+var resultadoOff = document.getElementById("resultado").style.display = 'none';
+
+function chutar() {
+  var valor = parseFloat(document.getElementById("valor").value);
+  quantidadeRodadas--;
+  resultadoOff = document.getElementById("resultado").style.display = 'block';
+  
+  if (quantidadeRodadas === 0) {
+    /*document.getElementById("chutar").disabled = true;*/
+    document.getElementById("chutar").style.display = "none";
+    botaoOnOrOff = botaoReset.style.display = 'block';
+    document.getElementById("resultado").innerHTML =
+      "Suas tentativas acabaram. Tente de novo";
+  } else if (valor > 10 || valor < 0) {
+    document.getElementById(
+      "resultado"
+    ).innerHTML = `Coloque um valor entre 0 e 10!`;
+  } else if (numeroAleatorio === valor) {
+    document.getElementById("chutar").style.display = "none";
+    botaoOnOrOff = botaoReset.style.display = 'block';
+    document.getElementById(
+      "resultado"
+    ).innerHTML = `Parabéns! Você acertou. O número era ${numeroAleatorio}`;
+  } else if (numeroAleatorio < valor) {
+    document.getElementById(
+      "resultado"
+    ).innerHTML = `Coloque um valor menor que ${valor}`;
+  } else if (numeroAleatorio > valor) {
+    document.getElementById(
+      "resultado"
+    ).innerHTML = `Coloque um valor maior que ${valor}`;
+  } else {
+    document.getElementById("resultado").innerHTML = "Insira um valor válido";
+  }
+}
+function restart() {
+  window.location.reload(true);
+}
+
+  </script>
+</body>
+</html>
